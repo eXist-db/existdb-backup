@@ -102,6 +102,7 @@
             paper-card {
                 width: max-content;
                 margin: 50px;
+                display:table;
 
                 --paper-card-header: {
                     background: var(--paper-blue-700);
@@ -130,6 +131,11 @@
             }
             iron-overlay-backdrop{
                 background: var(--paper-grey-100);
+            }
+
+            a.downloadLink{
+                padding: 0;
+                margin: 0;
             }
         </style>
 
@@ -183,7 +189,7 @@
                                 </td>
                                 <td>
                                     <template is="dom-if" if="[[_isDownloadable(item.name)]]">
-                                        <a href="{{_getHref(item.name)}}" tabindex="-1">
+                                        <a class="downloadLink" href="{{_getHref(item.name)}}" tabindex="-1">
                                             <paper-icon-button icon="file-download"></paper-icon-button>
                                         </a>
                                     </template>
