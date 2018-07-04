@@ -200,7 +200,7 @@
                             </tr>
                         </template>
                     </table>
-                    <h3><iron-icon icon="error-outline"></iron-icon>For security reasons only zipped archives can be downloaded</h3>
+                    <h3><iron-icon icon="error-outline"></iron-icon>For security reasons only zipped backups can be downloaded</h3>
                 </div>
 
                 <div class="card-actions">
@@ -287,6 +287,12 @@
                 this.$.backdrop.close();
                 this.$.loadBackups.generateRequest();
             }
+
+            _showLogout(){
+//                console.log('showLogout ', this.logout);
+                return this.getAttribute('logout') == 'true';
+            }
+
         }
 
         window.customElements.define(ExistdbBackup.is, ExistdbBackup);

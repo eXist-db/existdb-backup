@@ -21,6 +21,7 @@ declare function backup:list() {
             <json:value>
             {
                 for $backup in $backups
+                order by $backup/exist:date/string() descending
                 return
                     <json:value json:array="true">
                         <name>{$backup/@file/string()}</name>
