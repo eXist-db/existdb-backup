@@ -5,15 +5,21 @@
     <property name="project.version" value="${package(version)}"/>
     <property name="project.app" value="${package(abbrev)}"/>
     <property name="build.dir" value="build"/>
-    
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+<!--
     <target name="prepare" description="copy actual web components into bower_components dir to avoid path referencing problems.">
         <mkdir dir="${basedir}/bower_components/${package(abbrev)}"/>
         <copy todir="${basedir}/bower_components/${package(abbrev)}">
             <fileset dir="${basedir}" includes="*-*.html"/>
         </copy>
     </target>
+-->
 
-    <target name="xar" depends="prepare">
+    <!--<target name="xar" depends="prepare">-->
+    <target name="xar">
         <mkdir dir="${build.dir}"/>
         <zip basedir="." destfile="${build.dir}/${project.app}-${project.version}.xar" excludes="bower.json.ignores build.xml ${build.dir}/**, node_modules/**, doc/**, gulpfile.js, package.json, .idea/**"/>
     </target>
@@ -36,8 +42,10 @@
     <target name="polymer-build-production" depends="clean-polymer-build">
         <exec executable="polymer">
             <arg value="build"/>
-            <arg value="--shell"/>
+<!--
+            <arg value="&#45;&#45;shell"/>
             <arg value="index.html"/>
+-->
         </exec>
     </target>
 
@@ -45,16 +53,16 @@
     <!--
     creates a xar file with optimized Polymer components
     -->
-    <target name="production-xar" depends="polymer-build-production">
+    <!--<target name="production-xar" depends="polymer-build-production">-->
+    <target name="production-xar">
         <mkdir dir="${build.dir}"/>
 
         <copy file="controller.xql" todir="${build.dir}/bundled"/>
         <copy file="expath-pkg.xml" todir="${build.dir}/bundled"/>
-        <copy file="configuration.xml" todir="${build.dir}/bundled"/>
+        <!--<copy file="configuration.xml" todir="${build.dir}/bundled"/>-->
         <copy file="repo.xml" todir="${build.dir}/bundled"/>
         <copy file="icon.png" todir="${build.dir}/bundled"/>
         <copydir src="${basedir}/modules" dest="${build.dir}/bundled/modules" />
-        <copydir src="${basedir}/resources" dest="${build.dir}/bundled/resources" />
 
         <zip basedir="${build.dir}/bundled" destfile="${build.dir}/${project.app}-${project.version}-prod.xar" excludes="demo"/>
     </target>

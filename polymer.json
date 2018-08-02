@@ -1,7 +1,20 @@
 {
-  "lint": {
-    "rules": [
-      "polymer-2"
-    ]
-  }
+  "entrypoint": "index.html",
+  "sources":[
+    "./*.html"
+  ],
+  "builds": [
+    {
+      "name": "bundled",
+      "js": {"compile": false, "minify": true},
+      "css": {"minify": true},
+      "sourceMaps":true,
+      "inlineCss": false,
+      "html": {
+        "minify": true
+      },
+      "stripComments":true,
+      "bundle":true
+    }
+  ]
 }
