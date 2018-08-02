@@ -13,13 +13,14 @@
                 height: 100%;
             }
 
+/*
             app-header-layout {
                 position: absolute;
                 top: 0px;
                 right: 0px;
                 bottom: 0px;
                 left: 0px;
-                /*height: calc(100% - 200px);*/
+                !*height: calc(100% - 200px);*!
                 background-color: #eee;
                 overflow: hidden;
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -31,13 +32,16 @@
                 color: white;
                 height: 60px;
             }
+*/
 
+/*
             a {
                 color: white;
                 font-size: 18px;
                 font-weight: 300;
                 margin-right: 20px;
             }
+*/
 
             .x {
                 --iron-icon-fill-color: white;
@@ -93,14 +97,15 @@
             paper-icon-button {
                 color: var(--paper-blue-500);
             }
-            paper-icon-button.disabled{
-                color:var(--paper-grey-500);
+
+            paper-icon-button.disabled {
+                color: var(--paper-grey-500);
             }
 
             paper-card {
                 width: max-content;
                 margin: 50px;
-                display:table;
+                display: table;
 
                 --paper-card-header: {
                     background: var(--paper-blue-700);
@@ -109,34 +114,40 @@
                     color: white;
                 };
             }
-            h3{
+
+            h3 {
                 width: 100%;
                 text-align: center;
-                color:var(--paper-grey-700);
+                color: var(--paper-grey-700);
             }
-            [icon='error-outline']{
-                margin-right:6px;
-                color:var(--paper-orange-500);
+
+            [icon='error-outline'] {
+                margin-right: 6px;
+                color: var(--paper-orange-500);
             }
-            paper-dialog{
+
+            paper-dialog {
                 background: transparent;
-                border:none;
+                border: none;
                 box-shadow: none;
             }
-            paper-spinner{
-                width:50px;
+
+            paper-spinner {
+                width: 50px;
                 height: 50px;
             }
-            iron-overlay-backdrop{
+
+            iron-overlay-backdrop {
                 background: var(--paper-grey-100);
             }
 
-            a.downloadLink{
+            a.downloadLink {
                 padding: 0;
                 margin: 0;
             }
-            .wrapper{
-                padding-bottom:50px;
+
+            .wrapper {
+                padding-bottom: 50px;
             }
         </style>
 
@@ -157,19 +168,21 @@
                    handle-as="json"
                    on-response="_handleBackupResponse"></iron-ajax>
 
-        <app-header-layout id="outer" fullbleed has-scrolling-region>
-            <app-header id="header" slot="header" fixed>
-                <app-toolbar>
-                    <iron-icon class="x" icon="restore"></iron-icon>
-                    <slot name="toggleIcon"></slot>
+        <!--
+                <app-header-layout id="outer" fullbleed has-scrolling-region>
+                    <app-header id="header" slot="header" fixed>
+                        <app-toolbar>
+                            <iron-icon class="x" icon="restore"></iron-icon>
+                            <slot name="toggleIcon"></slot>
 
-                    <div main-title>Backup</div>
-                    <template is="dom-if" if="{{_showLogout()}}">
-                        <a href="index.html?logout=true">logout</a>
-                    </template>
-                </app-toolbar>
-            </app-header>
-            <div class="wrapper">
+                            <div main-title>Backup</div>
+                            <template is="dom-if" if="{{_showLogout()}}">
+                                <a href="index.html?logout=true">logout</a>
+                            </template>
+                        </app-toolbar>
+                    </app-header>
+        -->
+        <div class="wrapper">
             <paper-card heading="Backups">
                 <div class="card-actions">
                     <iron-form id="backupForm">
@@ -179,7 +192,10 @@
                             <paper-button raised on-tap="_trigger">trigger backup</paper-button>
                         </form>
                     </iron-form>
-                    <h3><iron-icon icon="error-outline"></iron-icon>For security reasons only zipped backups can be downloaded</h3>
+                    <h3>
+                        <iron-icon icon="error-outline"></iron-icon>
+                        For security reasons only zipped backups can be downloaded
+                    </h3>
                 </div>
 
                 <div class="card-content">
@@ -205,7 +221,8 @@
                                         </a>
                                     </template>
                                     <template is="dom-if" if="[[_isDisabled(item.name)]]">
-                                        <paper-icon-button class="disabled" icon="file-download" disabled></paper-icon-button>
+                                        <paper-icon-button class="disabled" icon="file-download"
+                                                           disabled></paper-icon-button>
                                     </template>
                                 </td>
                             </tr>
@@ -214,10 +231,12 @@
                 </div>
 
             </paper-card>
-            </div>
+        </div>
+        <!--
 
-        </app-header-layout>
+                </app-header-layout>
 
+        -->
 
     </template>
 
@@ -270,10 +289,12 @@
             _isDownloadable(name) {
                 return name.endsWith('.zip');
             }
-            _isDisabled(name){
+
+            _isDisabled(name) {
                 return !name.endsWith('.zip');
             }
-            _trigger(e){
+
+            _trigger(e) {
                 this.$.triggerBackup.url = this.importPath + 'modules/backup.xql?action=trigger';
 
                 console.log("params ", this.$.backupForm.serializeForm());
@@ -283,13 +304,14 @@
                 this.$.triggerBackup.generateRequest();
                 this.$.backdrop.open();
             }
-            _handleBackupResponse(){
+
+            _handleBackupResponse() {
                 console.log('backup response ', this.$.triggerBackup.lastResponse);
                 this.$.backdrop.close();
                 this.$.loadBackups.generateRequest();
             }
 
-            _showLogout(){
+            _showLogout() {
 //                console.log('showLogout ', this.logout);
                 return this.getAttribute('logout') == 'true';
             }

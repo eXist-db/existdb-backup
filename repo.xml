@@ -10,4 +10,12 @@
     <target>existdb-backup</target>
     <prepare></prepare>
     <finish/>
+    <changelog>
+        <change version="1.1.0">
+            <ul xmls="http://www.w3.org/1999/xhtml">
+                <li>split app layout from backup panel</li>
+                <li>prepared for integration in dashboard</li>
+            </ul>
+        </change>
+    </changelog>
 </meta>
