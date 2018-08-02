@@ -14,6 +14,7 @@
     ".idea",
     "build",
     "bower_components",
+    "dependencies-local.html"
     "node_modules",
     "test",
     "build.xml",
